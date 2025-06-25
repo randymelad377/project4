@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <link rel="stylesheet" href="style.css">
+  
+  <title>Frontend Mentor | Intro section with dropdown navigation</title>
+
+</head>
+<body>
+
+  <div id="wrapper">
+
+    <header>
+      
+      <img src="images/logo.svg" alt="" id="logo_header">
+
+      
+      <nav>
+        <img src="images/icon-close-menu.svg" alt="" id="close_menu">
+        <ul>
+        <li id="feature_dropdown">
+          <button class="dropDown_button">Feature <img src="images/icon-arrow-down.svg" alt=""></button>
+          <div class="dropdown_container">
+            <ul class="drop_menu">
+              <li class="choice"><img src="images/icon-todo.svg" alt="">Todo</li>
+              <li class="choice"><img src="images/icon-calendar.svg" alt="">Calendar</li>
+              <li class="choice"><img src="images/icon-reminders.svg" alt="">Reminder</li>
+              <li class="choice"><img src="images/icon-planning.svg" alt="">Planning</li>
+            </ul>
+          </div>
+        </li>
+        <li id="company_dropdown">
+          <button class="dropDown_button">Company <img src="images/icon-arrow-down.svg" alt=""></button>
+          <div class="dropdown_container">
+            <ul class="drop_menu">
+              <li class="choice">History</li>
+              <li class="choice">Our Team</li>
+              <li class="choice">Blog</li>
+            </ul>
+          </div>
+        </li>
+        <li>Careers</li>
+        <li>About</li>
+      </ul>
+
+      <div class="login_container">
+        <button class="login">Login</button>
+        <button class="register">Register</button>
+      </div>
+      </nav>
+
+      <img src="images/icon-menu.svg" alt="" id="menu">
+
+
+    </header>
+
+    <main>
+      <div id="main_wrapper">
+        <h1>Make <br> remote work</h1>
+
+      <div class="about">
+        <p>Get your team in sync. no matter you location.</p>
+        <p>Streamline processes. create team rituals, and</p>
+        <p>watch productivity soar</p>
+      </div>
+
+      <button>Learn more</button>
+
+      <ul>
+        <li><img src="images/client-databiz.svg" alt=""></li>
+        <li><img src="images/client-audiophile.svg" alt=""></li>
+        <li><img src="images/client-meet.svg" alt=""></li>
+        <li><img src="images/client-maker.svg" alt=""></li>
+      </ul>
+      </div>
+    </main>
+
+    <aside>
+      <picture>
+        <source media="(max-width: 600px)" srcset="images/image-hero-mobile.png">
+        <source media="(min-width: 601px)" srcset="images/image-hero-desktop.png">
+        <img src="images/image-hero-desktop.png" alt="open">
+      </picture>
+    </aside>
+  </div>
+
+  <script>
+      const dropdown_container = document.querySelectorAll(".dropdown_container");
+      const dropdown_button = document.querySelectorAll(".dropDown_button");
+      const main = document.querySelector("main");
+      const aside = document.querySelector("aside");
+
+      const close_menu = document.getElementById("close_menu");
+      const menu = document.getElementById("menu");
+      const nav = document.querySelector("nav");
+
+      const nav_display = window.getComputedStyle(nav);
+
+      close_menu.addEventListener("click", (event) => {
+        if(nav_display.getPropertyValue("display") == "flex"){
+          nav.style.display = "none";
+        }
+      })  
+
+      menu.addEventListener("click", (event) => {
+        if(nav_display.getPropertyValue("display") == "none"){
+          nav.style.display = "flex";
+        }
+      })  
+
+      
+      Array.from(dropdown_button).forEach((element, index) => {
+        element.addEventListener("click", (event) => {
+          Array.from(dropdown_container).forEach((element_container, index_container) => {
+            const container_display = window.getComputedStyle(element_container);
+            console.log(container_display);
+              if(container_display.getPropertyValue("display") == "none" && index == index_container){
+                element_container.style.display = "block";
+              }else{
+                element_container.style.display = "none";
+              }
+              
+            })
+        })
+      })
+
+      const body_width = window.getComputedStyle(document.querySelector("body"));
+      const width = body_width.getPropertyValue("width");
+
+      const window_width = window.matchMedia("(max-width: 600px)");
+      window_width.addEventListener("change", (event) => {
+        if(!event.matches){
+          nav.style.display = "flex";
+        }
+        if(event.matches){
+          nav.style.display = "none";
+        }
+      })
+
+
+      main.addEventListener("click", (event) => {
+        Array.from(dropdown_container).forEach(element => {
+          if(element.style.display == "block"){
+            element.style.display = "none";
+          }
+           if(Number(width.slice(0, width.length-2)) < 601 && nav_display.getPropertyValue("display") == "flex"){
+          nav.style.display = "none";
+        }
+        })
+      })  
+      aside.addEventListener("click", (event) => {
+        Array.from(dropdown_container).forEach(element => {
+          if(element.style.display == "block"){
+            element.style.display = "none";
+          }
+          if(Number(width.slice(0, width.length-2)) < 601 && nav_display.getPropertyValue("display") == "flex"){
+          nav.style.display = "none";
+        }
+        })
+      })  
+  </script>
+
+</body>
+</html>
