@@ -130,7 +130,17 @@
 
       const body_width = window.getComputedStyle(document.querySelector("body"));
       const width = body_width.getPropertyValue("width");
-      console.log(Number(width.slice(0, width.length-2)) )
+
+      const window_width = window.matchMedia("(max-width: 600px)");
+      window_width.addEventListener("change", (event) => {
+        if(!event.matches){
+          nav.style.display = "flex";
+        }
+        if(event.matches){
+          nav.style.display = "none";
+        }
+      })
+
 
       main.addEventListener("click", (event) => {
         Array.from(dropdown_container).forEach(element => {
